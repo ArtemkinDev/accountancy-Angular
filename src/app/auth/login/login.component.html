@@ -1,8 +1,13 @@
 <p class="text-xs-center">Войдите для работы</p>
+<div
+  class="alert alert-{{message.type}}"
+  *ngIf="message.text">
+  {{message.text}}
+</div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div
     class="form-group"
-    [ngClass]="{'has-error':form.get('email').invalid && form.get('email').touched}"
+    [ngClass]="{'has-error':form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)}"
 
   >
     <label for="email">Email</label>
@@ -14,7 +19,7 @@
       formControlName="email"
     >
     <span class="form-help-text"
-          *ngIf="form.get('email').invalid && form.get('email').touched"
+          *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)"
     >
       <!--<span *ngIf="form.get('email')['errors']['required']">Введите Ваш email</span>
       <span *ngIf="form.get('email')['errors']['email']">Введите валидный email</span>-->
@@ -23,7 +28,7 @@
   </div>
   <div
     class="form-group"
-    [ngClass]="{'has-error':form.get('password').invalid && form.get('password').touched}"
+    [ngClass]="{'has-error':form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)}"
   >
     <label for="password">Пароль</label>
     <input
@@ -34,7 +39,7 @@
       formControlName="password"
     >
     <span class="form-help-text"
-          *ngIf="form.get('password').invalid && form.get('password').touched"
+          *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)"
     >
        <!--<span *ngIf="form.get('password')['errors']['required']">Введите Ваш пароль</span>
       <span *ngIf="form.get('password')['errors']['minlength']">Минимальное количество символов - 6</span>-->
@@ -47,7 +52,7 @@
   <div class="form-group">
     <p class="text-muted text-xs-center">
       Нет аккаунта?
-      <a href="#" (click)="goToRegistration($event)">Зарегистрироваться!</a>
+      <a routerLink="/registration">Зарегистрироваться!</a>
     </p>
   </div>
 </form>

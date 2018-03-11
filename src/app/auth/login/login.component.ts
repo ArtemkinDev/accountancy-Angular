@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { UsersService } from '../../services/users.service';
+import { User } from '../../shared/user.model';
+import { Message } from '../../shared/message';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,22 +15,60 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
   public emailPattern = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+  public message: Message;
 
-  constructor(private router: Router) {
-  }
+  constructor(
+    private router: Router,
+    private userService: UsersService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+    this.message = new Message('danger', '');
     this.createForm();
+    this.readUrlAfterRegistrtion();
   }
 
   onSubmit() {
-    console.log(this.form);
+    const form = this.form;
+    const formData = form.value;
 
+    if ( form.invalid ) {
+      Object.keys(form.controls).forEach(field => { // {1}
+        const control = form.get(field);            // {2}
+        control.markAsTouched({ onlySelf: true });       // {3}
+      });
+    } else {
+      this.userService.getUserByEmail(formData.email).subscribe((user: User) => {
+        if(user) {
+          if (user.password === formData.password) {
+            this.message.text = '';
+            window.localStorage.setItem('user', JSON.stringify(user));
+            this.authService.login();
+            this.router.navigate([ './system' ]);
+          } else {
+            this.showMessage({
+              text: 'Пароль не верный!',
+              type: 'danger'
+            });
+          }
+        } else {
+          this.showMessage({
+            text: 'Такого пользователя не зарегистрировано!',
+            type: 'danger'
+          });
+        }
+      })
+    }
   }
 
-  goToRegistration(event: Event) {
-    event.preventDefault();
-    this.router.navigate([ './registration' ])
+  showMessage(message: Message) {
+    this.message = message;
+
+    window.setTimeout(()=>{
+      this.message.text = '';
+    }, 2000)
   }
 
   createForm() {
@@ -42,7 +84,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  validatorMessages(fieldtype: string): string|boolean {
+  validatorMessages(fieldtype: string): string | boolean {
     const form = this.form;
 
     if ( !form || !form.invalid ) {
@@ -66,6 +108,18 @@ export class LoginComponent implements OnInit {
     }
 
     return error;
+  }
+
+  readUrlAfterRegistrtion() {
+    this.route.queryParams
+      .subscribe((params: Params) => {
+        if(params['newUserCreated']) {
+          this.showMessage({
+            text: 'Теперь можете зайти в систему',
+            type: 'success'
+          });
+        }
+      })
   }
 
 }

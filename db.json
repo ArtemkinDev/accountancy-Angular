@@ -5,6 +5,18 @@
       "email": "wfm@mail.ru",
       "password": "12345678",
       "name": "Администратор"
+    },
+    {
+      "email": "oleksandr.artomkin@p2h.com",
+      "password": "12345678",
+      "name": "Александр",
+      "id": 2
+    },
+    {
+      "email": "email@email.com",
+      "password": "12345678",
+      "name": "Test",
+      "id": 3
     }
   ],
   "bill": {
@@ -26,6 +38,11 @@
       "id": 3,
       "name": "Машина",
       "capacity": 7000
+    },
+    {
+      "name": "Собака",
+      "capacity": 1500,
+      "id": 4
     }
   ],
   "events": [
