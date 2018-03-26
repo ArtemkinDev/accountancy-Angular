@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'system-app',
@@ -7,10 +8,14 @@ import { Router } from '@angular/router';
 })
 
 export class SystemComponent implements OnInit {
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {
   }
 
   ngOnInit() {
-    this.router.navigate([ 'system/bill' ])
+    this.router.navigate([ 'system/bill' ]);
+    this.authService.login();
   }
 }

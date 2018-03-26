@@ -5,11 +5,14 @@ import { UsersService } from '../../services/users.service';
 import { User } from '../../shared/user.model';
 import { Message } from '../../shared/message';
 import { AuthService } from '../../services/auth.service';
+import { fadeStateTrigger } from '../../shared/animations/fade.animation';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: [ './login.component.scss' ]
+  styleUrls: [ './login.component.scss' ],
+  animations:[fadeStateTrigger]
 })
 export class LoginComponent implements OnInit {
 
@@ -22,7 +25,15 @@ export class LoginComponent implements OnInit {
     private userService: UsersService,
     private authService: AuthService,
     private route: ActivatedRoute,
-  ) { }
+    private title: Title,
+    private meta: Meta
+  ) {
+    title.setTitle('Вход в систему');
+    meta.addTags([
+      { name: 'keywords', content: 'логин, вход, система' },
+      { name: 'description', content: 'Страница для входа в систему' },
+    ]);
+  }
 
   ngOnInit() {
     this.message = new Message('danger', '');
@@ -68,7 +79,7 @@ export class LoginComponent implements OnInit {
 
     window.setTimeout(()=>{
       this.message.text = '';
-    }, 2000)
+    }, 5000)
   }
 
   createForm() {
@@ -117,6 +128,11 @@ export class LoginComponent implements OnInit {
           this.showMessage({
             text: 'Теперь можете зайти в систему',
             type: 'success'
+          });
+        } else if(params['accessDenied']) {
+          this.showMessage({
+            text: 'Войдите или зарегистрируйтесь!',
+            type: 'warning'
           });
         }
       })

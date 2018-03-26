@@ -4,23 +4,26 @@
       "id": 1,
       "email": "wfm@mail.ru",
       "password": "12345678",
-      "name": "Администратор"
+      "name": "Администратор",
+      "inSystem": "logout"
     },
     {
       "email": "oleksandr.artomkin@p2h.com",
       "password": "12345678",
       "name": "Александр",
-      "id": 2
+      "id": 2,
+      "inSystem": "logout"
     },
     {
       "email": "email@email.com",
       "password": "12345678",
       "name": "Test",
-      "id": 3
+      "id": 3,
+      "inSystem": "logout"
     }
   ],
   "bill": {
-    "value": 100000,
+    "value": 101500,
     "currency": "RUB"
   },
   "categories": [
@@ -85,6 +88,54 @@
       "date": "10.06.2017 14:01:58",
       "id": 5,
       "description": "Заправка + проход ТО"
+    },
+    {
+      "type": "income",
+      "amount": 1500,
+      "category": 1,
+      "date": "13.03.2018 21:42:14",
+      "description": "test",
+      "id": 6
+    },
+    {
+      "type": "outcome",
+      "amount": 2000,
+      "category": 3,
+      "date": "17.03.2018 21:20:52",
+      "description": "Новые стойки",
+      "id": 7
+    },
+    {
+      "type": "outcome",
+      "amount": 2500,
+      "category": 3,
+      "date": "17.03.2018 21:25:11",
+      "description": "Новая рулевая рейка",
+      "id": 8
+    },
+    {
+      "type": "outcome",
+      "amount": 500,
+      "category": 4,
+      "date": "18.03.2018 15:19:28",
+      "description": "Прививка собаке",
+      "id": 9
+    },
+    {
+      "type": "income",
+      "amount": 2000,
+      "category": 1,
+      "date": "20.03.2018 20:08:43",
+      "description": "Премия на работе",
+      "id": 10
+    },
+    {
+      "type": "income",
+      "amount": 3000,
+      "category": 1,
+      "date": "20.03.2018 20:10:08",
+      "description": "Премия",
+      "id": 11
     }
   ]
 }

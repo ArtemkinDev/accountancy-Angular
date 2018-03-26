@@ -18,16 +18,24 @@ import { AddEventComponent } from './records-page/add-event/add-event.component'
 import { AddCategoryComponent } from './records-page/add-category/add-category.component';
 import { EditCategoryComponent } from './records-page/edit-category/edit-category.component';
 import { CategoriesService } from '../services/categories.service';
+import { EventsService } from '../services/events.service';
+import { HistoryChatComponent } from './history-page/history-chat/history-chat.component';
+import { HistoryDetailComponent } from './history-page/history-detail/history-detail.component';
+import { HistoryEventsComponent } from './history-page/history-events/history-events.component';
+import { HistoryFilterComponent } from './history-page/history-filter/history-filter.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FilterPipe } from '../shared/pipes/search.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    SystemRoutingModule
+    SystemRoutingModule,
+    NgxChartsModule
   ],
-  declarations: [SystemComponent, BillPageComponent, HistoryPageComponent, PlanningPageComponent, RecordsPageComponent, SystemSideBarComponent, HeaderComponent, DropdownDirective, BillCardComponent, CurrencyCardComponent, MomentPipe, AddEventComponent, AddCategoryComponent, EditCategoryComponent],
+  declarations: [SystemComponent, BillPageComponent, HistoryPageComponent, PlanningPageComponent, RecordsPageComponent, SystemSideBarComponent, HeaderComponent, DropdownDirective, BillCardComponent, CurrencyCardComponent, MomentPipe, AddEventComponent, AddCategoryComponent, EditCategoryComponent, HistoryChatComponent, HistoryDetailComponent, HistoryEventsComponent, HistoryFilterComponent,FilterPipe],
   exports: [ SystemRoutingModule ],
-  providers: [BillService, CategoriesService]
+  providers: [BillService, CategoriesService, EventsService]
 })
 
 export class SystemModule {
